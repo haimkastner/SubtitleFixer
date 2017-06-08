@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<extensions>
+  <movies>
+    <movie name=".mkv"/>
+    <movie name=".mpg"/>
+    <movie name=".mp4"/>
+    <movie name=".flv"/>
+    <movie name=".avi"/>
+    <movie name=".wmv"/>
+    <movie name=".m4p"/>
+    <movie name=".mpeg"/>
+    <movie name=".3gp"/>
+    <movie name=".mov"/>
+  </movies>
+  <subtitles>
+    <subtitle name=".srt"/>
+    <subtitle name=".sub"/>
+    <subtitle name=".smi"/>
+    <subtitle name=".sbv"/>
+  </subtitles>
+</extensions>

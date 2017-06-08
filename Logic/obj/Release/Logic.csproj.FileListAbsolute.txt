@@ -1,0 +1,6 @@
+H:\OneDrive\Projects\SubtitleFixer\Bulid\Release\Config\Extentions.xml
+H:\OneDrive\Projects\SubtitleFixer\Bulid\Release\Config\Pathes.xml
+H:\OneDrive\Projects\SubtitleFixer\Bulid\Release\Logic.dll
+H:\OneDrive\Projects\SubtitleFixer\Bulid\Release\Logic.pdb
+H:\OneDrive\Projects\SubtitleFixer\Logic\obj\Release\Logic.dll
+H:\OneDrive\Projects\SubtitleFixer\Logic\obj\Release\Logic.pdb

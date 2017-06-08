@@ -1,0 +1,15 @@
+H:\OneDrive\Projects\SubtitleFixer\Logic\bin\Debug\Config\Extentions.xml
+H:\OneDrive\Projects\SubtitleFixer\Logic\bin\Debug\Config\Pathes.xml
+H:\OneDrive\Projects\SubtitleFixer\Logic\bin\Debug\Logic.dll
+H:\OneDrive\Projects\SubtitleFixer\Logic\bin\Debug\Logic.pdb
+H:\OneDrive\Projects\SubtitleFixer\Logic\obj\Debug\Logic.dll
+H:\OneDrive\Projects\SubtitleFixer\Logic\obj\Debug\Logic.pdb
+H:\OneDrive\Projects\SubtitleFixer\Bulid\Config\Extentions.xml
+H:\OneDrive\Projects\SubtitleFixer\Bulid\Config\Pathes.xml
+H:\OneDrive\Projects\SubtitleFixer\Bulid\Logic.dll
+H:\OneDrive\Projects\SubtitleFixer\Bulid\Logic.pdb
+H:\OneDrive\Projects\SubtitleFixer\Bulid\Debug\Config\Extentions.xml
+H:\OneDrive\Projects\SubtitleFixer\Bulid\Debug\Config\Pathes.xml
+H:\OneDrive\Projects\SubtitleFixer\Bulid\Debug\Logic.dll
+H:\OneDrive\Projects\SubtitleFixer\Bulid\Debug\Logic.pdb
+H:\OneDrive\Projects\SubtitleFixer\Logic\obj\Debug\Logic.csprojResolveAssemblyReference.cache
