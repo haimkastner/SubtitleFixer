@@ -8,6 +8,9 @@
         xmlns:local="clr-namespace:SubtitleFixer"
         mc:Ignorable="d"
         Title="מתקן הכתוביות" Height="350" Width="525">
+    <Controls:MetroWindow.Resources>
+        <local:ParametersToListConverter x:Key="ParametersToListConvert"/>
+    </Controls:MetroWindow.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition  Width="1*"/>
@@ -30,11 +33,26 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
+
+        <!--selection if use file or folder-->
+        <ToggleButton Grid.Column="1" Grid.Row="1" Style="{StaticResource MaterialDesignActionToggleButton}"
+                      IsChecked="{Binding SelectionStatus}"
+                      ToolTip="בחירת מצב תיקון: תיקיה או קובץ יחיד">
+            <ToggleButton.Content>
+                <materialDesign:PackIcon Kind="Folder" />
+            </ToggleButton.Content>
+            <materialDesign:ToggleButtonAssist.OnContent>
+                <materialDesign:PackIcon Kind="FileDocumentBox" />
+            </materialDesign:ToggleButtonAssist.OnContent>
+        </ToggleButton>
+
+        <!--path selection buttons-->
         <Button Grid.Column="6" Grid.Row="1" Content="בחר תיקיה" 
                 Command="{Binding FolderSelectCommand}" CommandParameter="" />
         <Button Grid.Column="6" Grid.Row="3" Content="בחר קובץ" 
                 Command="{Binding FileSelectCommand}" CommandParameter="" />
 
+        <!--show selected pathes-->
         <TextBox Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="1" 
                    Text="{Binding FolderPath}" IsEnabled="False"
                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -43,13 +61,40 @@
                    Text="{Binding FilePath}" IsEnabled="False"
                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
 
+        <!--fixes buttons-->
         <Button Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="5" Content="תיקון כתוביות לסדרות" 
-                Command="{Binding FixSeriosCommand}" 
-                CommandParameter="{Binding FolderPath}"/>
+                Command="{Binding FixSeriesCommand}" 
+                >
+            <Button.CommandParameter>
+                <MultiBinding Converter="{StaticResource ParametersToListConvert}">
+                    <Binding Path="FolderPath"/>
+                    <Binding Path="SelectionStatus"/>
+                </MultiBinding>
+            </Button.CommandParameter>
+        </Button>
         <Button Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="5" Content="תיקון כתוביות לסרטים" 
                 Command="{Binding FixMoviesCommand}" 
-                CommandParameter="{Binding FilePath}"/>
-
+                >
+            <Button.CommandParameter>
+                <MultiBinding Converter="{StaticResource ParametersToListConvert}">
+                    <Binding Path="FolderPath"/>
+                    <Binding Path="SelectionStatus"/>
+                </MultiBinding>
+            </Button.CommandParameter>
+        </Button>
+        <Button Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="7" Content="תיקון קידוד בלבד" 
+                Command="{Binding FixEncodingCommand}" 
+                >
+            <Button.CommandParameter>
+                <MultiBinding Converter="{StaticResource ParametersToListConvert}">
+                    <Binding Path="FolderPath"/>
+                    <Binding Path="FilePath"/>
+                    <Binding Path="SelectionStatus"/>
+                </MultiBinding>
+            </Button.CommandParameter>
+        </Button>
+        
+        <!--snakbar for messages like errors or succcess-->
         <materialDesign:Snackbar MessageQueue="{materialDesign:MessageQueue}"
                                  Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="6"  x:Name="Snackbar" />
     </Grid>

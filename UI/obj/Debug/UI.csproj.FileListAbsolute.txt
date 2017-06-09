@@ -37,3 +37,4 @@ H:\OneDrive\Projects\SubtitleFixer\Bulid\Debug\Config\Extentions.xml
 H:\OneDrive\Projects\SubtitleFixer\Bulid\Debug\Config\Pathes.xml
 H:\OneDrive\Projects\SubtitleFixer\Bulid\Debug\SubtitleFixer.exe
 H:\OneDrive\Projects\SubtitleFixer\Bulid\Debug\SubtitleFixer.pdb
+H:\OneDrive\Projects\SubtitleFixer\UI\obj\Debug\GeneratedInternalTypeHelper.g.cs

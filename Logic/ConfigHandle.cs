@@ -11,8 +11,20 @@ using System.Xml.Linq;
 
 namespace Logic
 {
+    /// <summary>
+    /// This class gives API to read and write data from xml config files
+    /// </summary>
     public static class ConfigHandle
     {
+        #region Data Members
+
+        private static string _folderPath = "";
+        private static string _filePath = "";
+
+        #endregion
+
+        #region Properties
+
         /// <summary>
         /// all extention that belong to movie list (data is from configuration files)
         /// </summary>
@@ -21,50 +33,78 @@ namespace Logic
         /// all extention that belong to subtitle list (data is from configuration files)
         /// </summary>
         public static List<string> SubtitleTypes { get; private set; }
-
-
-        private static string _folderPath = "";
+        /// <summary>
+        /// Folder Path
+        /// </summary>
         public static string FolderPath
         {
             get
             {
-                return _folderPath != "" ? _folderPath : _folderPath = GetPath("Folder");
+                return _folderPath;
             }
             set
             {
+                // set data member and update file
                 _folderPath = value;
                 SetPath("Folder", value);
             }
         }
-
-        private static string _filePath = "";
+        /// <summary>
+        /// File Path
+        /// </summary>
         public static string FilePath
         {
             get
             {
-                return _filePath != "" ? _filePath : _filePath = GetPath("File");
+                return _filePath;
             }
             set
             {
+                // set data member and update file
                 _filePath = value;
                 SetPath("File", value);
             }
         }
-
+        /// <summary>
+        /// Current application exe path
+        /// </summary>
         private static string RootPath { get; set; }
+        /// <summary>
+        /// Current application config files path
+        /// </summary>
+        private static string ConfigPath { get; set; }
+        #endregion
+
+        #region Init
 
         static ConfigHandle()
         {
             RootPath = AppDomain.CurrentDomain.BaseDirectory;
+            ConfigPath = Path.Combine(RootPath, "Config");
             InitStaticLists();
         }
 
+        /// <summary>
+        /// Init properties to be like conf files
+        /// </summary>
         private static void InitStaticLists()
         {
-            MovieTypes = GetListFromXmlString("/extensions/movies/movie", "name", Path.Combine(RootPath, "Config//Extentions.xml"));
-            SubtitleTypes = GetListFromXmlString("/extensions/subtitles/subtitle", "name", Path.Combine(RootPath, "Config//Extentions.xml"));
+            _filePath = GetPath("File");
+            _folderPath = GetPath("Folder");
+
+            MovieTypes = GetListFromXml("/extensions/movies/movie", "name", Path.Combine(ConfigPath, "Extentions.xml"));
+            SubtitleTypes = GetListFromXml("/extensions/subtitles/subtitle", "name", Path.Combine(ConfigPath, "Extentions.xml"));
         }
 
+        #endregion
+
+        #region Xml Files read methods
+
+        /// <summary>
+        /// Set paths conf file value
+        /// </summary>
+        /// <param name="pathName">path node name</param>
+        /// <param name="value">value to set</param>
         private static void SetPath(string pathName, string value)
         {
             try
@@ -84,6 +124,11 @@ namespace Logic
 
         }
 
+        /// <summary>
+        /// Get value of path node
+        /// </summary>
+        /// <param name="pathName">path node name</param>
+        /// <returns></returns>
         private static string GetPath(string pathName)
         {
             try
@@ -104,15 +149,15 @@ namespace Logic
 
         /// <summary>
         /// get list of string
-        /// from string of xml data (we parse it to xml docoment)
+        /// from string of xml data
         /// by getting path of node and node name (like "/superNode/nodesName")
-        /// then for every node we add to list value of attrbute 
+        /// then for every node we add to list value by attrebute name 
         /// </summary>
         /// <param name="nodeAndNativ">Node path(native) and nodes to look name</param>
         /// <param name="attrbuteName">attrebute to get value from</param>
-        /// <param name="XmlStringToPars">xml string to pars and read</param>
+        /// <param name="XmlStringToPars">xml file path</param>
         /// <returns></returns>
-        private static List<string> GetListFromXmlString(string nodeAndNativ, string attrbuteName, string XmlPath)
+        private static List<string> GetListFromXml(string nodeAndNativ, string attrbuteName, string XmlPath)
         {
             List<string> list = new List<string>();
             try
@@ -130,5 +175,7 @@ namespace Logic
 
             return list;
         }
+
+        #endregion
     }
 }

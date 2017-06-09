@@ -1,11 +1,12 @@
-H:\OneDrive\Projects\SubtitleFixer\Bulid\Release\SubtitleFixer.exe.config
 H:\OneDrive\Projects\SubtitleFixer\Bulid\Release\Config\Extentions.xml
 H:\OneDrive\Projects\SubtitleFixer\Bulid\Release\Config\Pathes.xml
+H:\OneDrive\Projects\SubtitleFixer\Bulid\Release\SubtitleFixer.exe.config
 H:\OneDrive\Projects\SubtitleFixer\Bulid\Release\SubtitleFixer.exe
 H:\OneDrive\Projects\SubtitleFixer\Bulid\Release\SubtitleFixer.pdb
 H:\OneDrive\Projects\SubtitleFixer\UI\obj\Release\UI.csprojResolveAssemblyReference.cache
 H:\OneDrive\Projects\SubtitleFixer\UI\obj\Release\SubtitleFixerView.g.cs
 H:\OneDrive\Projects\SubtitleFixer\UI\obj\Release\App.g.cs
+H:\OneDrive\Projects\SubtitleFixer\UI\obj\Release\GeneratedInternalTypeHelper.g.cs
 H:\OneDrive\Projects\SubtitleFixer\UI\obj\Release\SubtitleFixer_MarkupCompile.cache
 H:\OneDrive\Projects\SubtitleFixer\UI\obj\Release\SubtitleFixer_MarkupCompile.lref
 H:\OneDrive\Projects\SubtitleFixer\UI\obj\Release\App.baml

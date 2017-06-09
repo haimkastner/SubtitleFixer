@@ -18,20 +18,28 @@ using System.Threading;
 namespace SubtitleFixer
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SubtitleFixerView.xaml
     /// </summary>
     public partial class SubtitleFixerView : MetroWindow
     {
         public SubtitleFixerView()
         {
+            // Create ViewModel for View
             var subtitleFixerViewModel = new SubtitleFixerViewModel();
+
+            // Registar to listen for ViewModel messages to show them in view
             subtitleFixerViewModel.BrodcastMessage += SnackbarShow;
+
+            // Bind ViewModel to XAML View 
             DataContext = subtitleFixerViewModel;
             InitializeComponent();
 
         }
 
-
+        /// <summary>
+        /// Invoke the snake bar in view with parameter message
+        /// </summary>
+        /// <param name="message">the message to show</param>
         public void SnackbarShow(string message)
         {
             Task.Factory.StartNew(() =>
