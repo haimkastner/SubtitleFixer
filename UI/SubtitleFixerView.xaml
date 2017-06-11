@@ -10,6 +10,7 @@
         Title="מתקן הכתוביות" Height="350" Width="525">
     <Controls:MetroWindow.Resources>
         <local:ParametersToListConverter x:Key="ParametersToListConvert"/>
+        <local:PathTypeConverter x:Key="PathTypeConvert"/>
     </Controls:MetroWindow.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -36,7 +37,7 @@
 
         <!--selection if use file or folder-->
         <ToggleButton Grid.Column="1" Grid.Row="1" Style="{StaticResource MaterialDesignActionToggleButton}"
-                      IsChecked="{Binding SelectionStatus}"
+                      IsChecked="{Binding Path=SelectionStatus, Converter={StaticResource PathTypeConvert}}"
                       ToolTip="בחירת מצב תיקון: תיקיה או קובץ יחיד">
             <ToggleButton.Content>
                 <materialDesign:PackIcon Kind="Folder" />

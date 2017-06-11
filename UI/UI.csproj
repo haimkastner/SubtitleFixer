@@ -75,12 +75,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\PathTypeConverter.cs" />
     <Compile Include="SubtitleFixerView.xaml.cs">
       <DependentUpon>SubtitleFixerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SubtitleFixerViewModel.cs" />
-    <Compile Include="SubtitleFixerCommends.cs" />
-    <Compile Include="ParametersToListConverter.cs" />
+    <Compile Include="ViewModels\SubtitleFixerViewModel.cs" />
+    <Compile Include="Commands\SubtitleFixerCommends.cs" />
+    <Compile Include="Converters\ParametersToListConverter.cs" />
     <Page Include="SubtitleFixerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

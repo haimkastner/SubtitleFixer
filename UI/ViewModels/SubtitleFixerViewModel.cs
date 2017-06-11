@@ -14,6 +14,8 @@ namespace SubtitleFixer
     /// </summary>
     public class SubtitleFixerViewModel : INotifyPropertyChanged
     {
+        public enum PATH_TYPE { Folder, File}
+
         #region Events
 
         /// <summary>
@@ -55,7 +57,7 @@ namespace SubtitleFixer
         /// <summary>
         /// Selection status true meen file false meen folder ==== need to convert to ENUM
         /// </summary>
-        private bool _selectionStatus;
+        private PATH_TYPE _selectionStatus;
         /// <summary>
         /// Folder Path
         /// </summary>
@@ -70,9 +72,9 @@ namespace SubtitleFixer
         #region Data Members Properties
 
         /// <summary>
-        /// Selection status true meen file false meen folder ==== need to convert to ENUM
+        /// Selection status
         /// </summary>
-        public bool SelectionStatus
+        public PATH_TYPE SelectionStatus
         {
             get
             {
@@ -124,7 +126,7 @@ namespace SubtitleFixer
         public SubtitleFixerViewModel()
         {
             // set ti to be ENUM and adding converts
-            SelectionStatus = false;
+            SelectionStatus = PATH_TYPE.Folder;
 
             // for start postion
             FolderPath = ConfigHandle.FolderPath;
@@ -189,8 +191,9 @@ namespace SubtitleFixer
         private void FixEncoding(object param)
         {
             // select correct path (folder or file)
-            var path = SelectionStatus ? FilePath : FolderPath;
-            if (Logics.FixEncoding(path, SelectionStatus))
+            bool IsFilePath = SelectionStatus == PATH_TYPE.File ? true : false;
+            
+            if (Logics.FixEncoding(IsFilePath ? FilePath : FolderPath , IsFilePath))
                 BrodcastMessage?.Invoke("בוצע בהצלחה");
             else
                 BrodcastMessage?.Invoke("שגיאה");

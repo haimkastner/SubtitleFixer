@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using static SubtitleFixer.SubtitleFixerViewModel; 
 
 namespace SubtitleFixer
 {
@@ -72,7 +73,7 @@ namespace SubtitleFixer
                 // only if status is for folder and folder path not empty
                 List<object> list = (List<object>)parameter;
                 return this.canExecute != null && this.canExecute(parameter) &&
-                       !((bool)list[1]) && list[0] != null && list[0].ToString() != "";
+                       ((PATH_TYPE)list[1]) == PATH_TYPE.Folder && list[0] != null && list[0].ToString() != "";
             }
 
             return this.canExecute != null && this.canExecute(parameter);
@@ -170,7 +171,7 @@ namespace SubtitleFixer
                 // if is folder status check that folder is not empty else check the file path 
                 List<object> list = (List<object>)parameter;
                 return this.canExecute != null && this.canExecute(parameter) &&
-                       !((bool)list[2]) ? list[0]!= null && list[0].ToString() != "" : list[1] != null &&  list[1].ToString() != "";
+                       ((PATH_TYPE)list[2]) == PATH_TYPE.Folder ? list[0]!= null && list[0].ToString() != "" : list[1] != null &&  list[1].ToString() != "";
             }
 
             return this.canExecute != null && this.canExecute(parameter);
