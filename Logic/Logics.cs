@@ -83,7 +83,7 @@ namespace Logic
         private static bool GetFileIdentity(string filename, out string identity)
         {
             var identityRegex = Regex.Match(filename, identityPattern);
-            identity = identityRegex.Value;
+            identity = identityRegex.Value.ToLower();
             return identityRegex.Success;
         }
 
