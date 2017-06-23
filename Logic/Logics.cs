@@ -23,6 +23,28 @@ namespace Logic
         #region API
 
         /// <summary>
+        /// Get subtitle file and find the movie thet he belong and create file with name of movie and fix encoding
+        /// </summary>
+        /// <param name="filePath">path of subtitle file</param>
+        /// <returns>true if success</returns>
+        public static bool FixMovie(string filePath)
+        {
+            try
+            {
+                // get all files in folder
+                string[] folderFiles = Directory.GetFiles(Path.GetDirectoryName(filePath));
+
+                return FixMovie(filePath, folderFiles);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error");
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Fix text file/files encoding to be unicode
         /// </summary>
         /// <param name="path">path of file/files</param>
@@ -63,7 +85,6 @@ namespace Logic
             }
             catch (Exception)
             {
-
                 Console.WriteLine("Error");
             }
 
@@ -85,6 +106,17 @@ namespace Logic
             var identityRegex = Regex.Match(filename, identityPattern);
             identity = identityRegex.Value.ToLower();
             return identityRegex.Success;
+        }
+
+        /// <summary>
+        /// Get guess for heading of file name (use to compere movie name to other)
+        /// </summary>
+        /// <param name="filePath">full file path</param>
+        /// <returns>guess main movie name</returns>
+        private static string GetFileMainShortName(string filePath)
+        {
+            string fileName = Path.GetFileName(filePath);
+            return fileName.Substring(0, fileName.Length < 10 ? fileName.Length : 10);
         }
 
         /// <summary>
@@ -124,7 +156,7 @@ namespace Logic
         /// <param name="movieFiles">movies list to load</param>
         /// <param name="subtitilsFiles">subtitle list to load</param>
         /// <param name="Files">array of files path to map</param>
-        public static void MapFiles(out List<string> movieFiles, out List<string> subtitilsFiles, string[] Files)
+        public static void MapFiles(out List<string> movieFiles, out List<string> subtitilsFiles, IEnumerable<string> Files)
         {
             subtitilsFiles = new List<string>();
             movieFiles = new List<string>();
@@ -143,6 +175,50 @@ namespace Logic
         #endregion
 
         #region Main Logics
+
+        /// <summary>
+        /// Get subtitle file and files in his folder and find the movie thet he belong and create file with name of movie and fix encoding
+        /// </summary>
+        /// <param name="subtitlePath">subtile file</param>
+        /// <param name="allFolderFiles">Enumerable of all files path in folder of movie</param>
+        /// <returns>true if found movie that belong to subtitle</returns>
+        private static bool FixMovie(string subtitlePath, IEnumerable<string> allFolderFiles)
+        {
+            string subtitle = GetFileMainShortName(subtitlePath);
+            string highestRateMovie = "";
+            double highestRate = 0;
+
+            var movieFiles = (from file in allFolderFiles
+                                 where IsMovieFile(file)
+                                 select file).ToList();
+
+            foreach(var movie in movieFiles)
+            {
+                double currentRate =  DamerauLevenshteinDistance.SimilarityInPresent(subtitle , GetFileMainShortName(movie));
+
+                if (currentRate > highestRate)
+                {
+                    highestRateMovie = movie;
+                    highestRate = currentRate;
+                }
+            }
+
+            if (highestRate == 0)
+                return false;
+
+            // the new subtitle name is made from 1: original path 
+            //                                    2: movie file name without extension 
+            //                                    3: original subtitle extension
+            string newSubtitleName = Path.Combine(Path.GetDirectoryName(highestRateMovie),
+                                                  Path.GetFileNameWithoutExtension(highestRateMovie) + Path.GetExtension(subtitlePath));
+            // only if not alredy exist with same name create new copy of original file with new name!
+            if (!File.Exists(newSubtitleName))
+                File.Copy(subtitlePath, newSubtitleName);
+
+            FixFileEncoding(newSubtitleName);
+
+            return true;
+        }
 
         /// <summary>
         /// Fix the subtitile names in folder to be like episodes 

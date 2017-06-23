@@ -136,8 +136,8 @@ namespace SubtitleFixer
             FolderSelectCommand = new SimpleCommends(new Action<object>(FolderSelect));
             FileSelectCommand = new SimpleCommends(new Action<object>(FileSelect));
 
-            FixSeriesCommand = new FixSubsCommends(new Action<object>(FixSeries));
-            FixMoviesCommand = new FixSubsCommends(new Action<object>(FixMovies));
+            FixSeriesCommand = new FixSeriesSubsCommends(new Action<object>(FixSeries));
+            FixMoviesCommand = new FixMovieSubCommends(new Action<object>(FixMovies));
             FixEncodingCommand = new FixEncodeCommand(new Action<object>(FixEncoding));
         }
 
@@ -169,7 +169,10 @@ namespace SubtitleFixer
         /// <param name="param">null</param>
         private void FixMovies(object param)
         {
-
+            if (Logics.FixMovie(FilePath))
+                BrodcastMessage?.Invoke("בוצע בהצלחה");
+            else
+                BrodcastMessage?.Invoke("שגיאה");
         }
 
         /// <summary>
